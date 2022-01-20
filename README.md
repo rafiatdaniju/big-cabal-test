@@ -10,7 +10,7 @@ output title and content for 10 posts on page 1, or alternatively the page numbe
 support limiting the posts returned to posts matching the search term from the s query parameter 
 Replace any instances of [ad] in the content with an HTML div element that will in turn be replaced with an ad by some Javascript code unrelated to this test 
 Find the errors in the code below and list them -- assume language level PHP 8 and that this is being run in a WordPress context (e.g. as index.php in a theme) 
-$page = $_GET['page'] ?? 1; (No opening php tag 
+``` $page = $_GET['page'] ?? 1;
 $q = WP_Query([ 
  'posts_per_page' => 10, 
  'page' => $page, 
@@ -28,7 +28,7 @@ while ($q->have_posts()) {
  <h2><?= esc_html(the_title()) ?></h2> 
  <p><?php echo $content ?></p> 
  <?php 
-}
+} ```
 
 
 ### Solution
@@ -38,7 +38,7 @@ while ($q->have_posts()) {
 - 's' => $_GET['s']; $_GET['s']wasn’t checked and sanitized. Instead of calling $_GET['s']inside the query, I would assigned it as a variable first before passing it to the query.
 ``` $search_query = isset($_GET['s']) && !empty($_GET['s']) ? sanitize_text_field($_GET['s']) : ''; ``` it is then passed in to the wp_query like this 
 ``` 's' => $search_query ```
-- <h1>Page <?= $page ?> of <?= $pages ?> : Search for <?= esc_html($_GET['s']); no closing </h1>, $pages wasn’t declared and assigned a value before use
+- ```<h1>Page <?= $page ?> of <?= $pages ?> : Search for <?= esc_html($_GET['s']); no closing </h1>```, $pages wasn’t declared and assigned a value before use
 - $content = preg_replace_callback('#[ad]#', function() {  echo '<div class="ad ad-'.$m[1].'"></div>'; # leave for Javascript handler to replace with live ad 
  }); The regex pattern is wrong, the third parameter(input)is missing. Since we just want to search and replace I prefer to use  preg_replace()
 
@@ -99,7 +99,7 @@ Use media query in CSS
 
 ## HTML 
 Consider the following HTML: 
-<html><head><title>Example</title></head></html> 
+```<html><head><title>Example</title></head></html> 
 <body> 
  <h1>Hello, world</h1> 
  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor  
@@ -110,11 +110,11 @@ libero, a pharetra augue. Donec sed odio dui. Integer posuere erat a ante venena
  <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia <a href=https://www.bigcabal.com> odio sem nec elit. Sed posuere </a > consectetur est at <abbr 
 name="lobortis">lbrt</abbr>. Maecenas faucibus mollis interdum. Aenean lacinia <img src=test.jpeg with=300 height=auto> bibendum 
 nulla sed consectetur. Praesent <code><b>commodo cursus magna, vel scelerisque nisl consectetur et.</code></b></p>  <button>Hit me</button> 
-</body> 
+</body>``` 
 Find any issues with the above that is not valid HTML 5? 
 
 ### Solution
-The <html> tag is not wrapping the entire content. <body> tag  is supposed to be inside the <html> tag
+The ```<html>``` tag is not wrapping the entire content. ```<body>``` tag  is supposed to be inside the <html> tag
 [see index.html for more details](./index.html)
 
 Mention at least three techniques for this page (any page) that would improve how it would perform in search engines   using HTML only 
@@ -124,7 +124,7 @@ Mention at least three techniques for this page (any page) that would improve ho
 - Add meta description with catching description
 - Add open graph meta tag
 - Add alt attribute to images
-- Use heading (<h1> to <h5>) tags appropriately 
+- Use heading (```<h1>``` to ```<h5>```) tags appropriately 
 
 ## Javascript 
 Using a corrected version of the above HTML as a starting point, create a Javascript function that adds three new paragraphs each time you hit the button. 
