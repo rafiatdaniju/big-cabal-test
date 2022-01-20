@@ -10,25 +10,25 @@ output title and content for 10 posts on page 1, or alternatively the page numbe
 support limiting the posts returned to posts matching the search term from the s query parameter 
 Replace any instances of [ad] in the content with an HTML div element that will in turn be replaced with an ad by some Javascript code unrelated to this test 
 Find the errors in the code below and list them -- assume language level PHP 8 and that this is being run in a WordPress context (e.g. as index.php in a theme) 
-``` $page = $_GET['page'] ?? 1;
-$q = WP_Query([ 
- 'posts_per_page' => 10, 
- 'page' => $page, 
- 's' => $_GET['s'] 
-]); 
-?> 
-<h1>Page <?= $page ?> of <?= $pages ?> : Search for <?= esc_html($_GET['s']) ?> 
-<?php 
+$page = $_GET['page'] ?? 1;
+```$q = WP_Query([ ```
+ ```'posts_per_page' => 10,```
+ ```'page' => $page,``` 
+``` 's' => $_GET['s'] ```
+```]); ```
+``` ?> ```
+```<h1> Page <?= $page ?> of <?= $pages ?> : Search for <?= esc_html($_GET['s']) ?> ```
+```<?php ```
 while ($q->have_posts()) { 
  $q->the_post(); 
  $content = get_the_content(); 
  $content = preg_replace_callback('#[ad]#', function() {  echo '<div class="ad ad-'.$m[1].'"></div>'; # leave for Javascript handler to replace with live ad 
  }); 
  ?> 
- <h2><?= esc_html(the_title()) ?></h2> 
- <p><?php echo $content ?></p> 
- <?php 
-} ```
+ ```<h2><?= esc_html(the_title()) ?></h2> ```
+ ```<p><?php echo $content ?></p> ```
+ ```<?php ```
+}
 
 
 ### Solution
@@ -43,7 +43,7 @@ while ($q->have_posts()) {
  }); The regex pattern is wrong, the third parameter(input)is missing. Since we just want to search and replace I prefer to use  preg_replace()
 
 ``` $content = preg_replace('[\[ad\]]', '<div class="ad ad-'.$m[1].'"></div>', $content );```
-- <h2><?= esc_html(the_title()) ?></h2> 
+- ```<h2><?= esc_html(the_title()) ?></h2> ```
 The_title() will only retrieve the title without printing. You have to use echo or print function to output.
 ``` <h2><?php echo esc_html(the_title()) ?></h2> ```
 - At the end you reset the query 
@@ -99,18 +99,16 @@ Use media query in CSS
 
 ## HTML 
 Consider the following HTML: 
-```<html><head><title>Example</title></head></html> 
-<body> 
- <h1>Hello, world</h1> 
- <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor  
- auctor. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras mattis consectetur purus sit amet fermentum.   Morbi leo risus, porta ac consectetur ac, vestibulum at eros</p>   
- <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod. Nulla vitae elit
-libero, a pharetra augue. Donec sed odio dui. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p> 
+```<html><head><title>Example</title></head></html> ```
+``<body>`` 
+ ```<h1>Hello, world</h1> ```
+ ```<p>```Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor  
+ auctor. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras mattis consectetur purus sit amet fermentum.   Morbi leo risus, porta ac consectetur ac, vestibulum at eros ```</p> ```  
+ ```<p>``` Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod. Nulla vitae elit
+libero, a pharetra augue. Donec sed odio dui. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.```</p> ```
   
- <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia <a href=https://www.bigcabal.com> odio sem nec elit. Sed posuere </a > consectetur est at <abbr 
-name="lobortis">lbrt</abbr>. Maecenas faucibus mollis interdum. Aenean lacinia <img src=test.jpeg with=300 height=auto> bibendum 
-nulla sed consectetur. Praesent <code><b>commodo cursus magna, vel scelerisque nisl consectetur et.</code></b></p>  <button>Hit me</button> 
-</body>``` 
+``` <p>``` Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia ```<a href=https://www.bigcabal.com> odio sem nec elit. Sed posuere </a >``` consectetur est at ```<abbr name="lobortis">lbrt</abbr>``` . Maecenas faucibus mollis interdum. Aenean lacinia ```<img src=test.jpeg with=300 height=auto> bibendum nulla sed consectetur. Praesent <code><b>commodo cursus magna, vel scelerisque nisl consectetur et.</code></b></p>  <button>Hit me</button>``` 
+```</body> ``
 Find any issues with the above that is not valid HTML 5? 
 
 ### Solution
